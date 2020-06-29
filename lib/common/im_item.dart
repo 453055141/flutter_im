@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_im/config/application.dart';
+import 'package:flutter_im/config/routes.dart';
 import 'touch_callback.dart';
 
 class ImItem extends StatelessWidget {
@@ -46,7 +48,11 @@ class ImItem extends StatelessWidget {
           //判断点击的项
           switch (title) {
             case '好友动态':
-              Navigator.pushNamed(context, '/friends');
+              Routes.navigateTo(context, Routes.friends, params: {
+                'title': "flutter",
+                'url': "https://flutter.io/",
+              });
+//              Navigator.pushNamed(context, '/friends');
               break;
             case '联系客服':
               break;

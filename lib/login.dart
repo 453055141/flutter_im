@@ -1,5 +1,8 @@
+import 'package:common_utils/common_utils.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/app.dart';
+import 'package:flutter_im/config/routes.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Login extends StatefulWidget {
@@ -9,7 +12,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey();
-  String _email, _password;
+  String _phone, _name;
   bool _isObscure = true;
   Color _eyeColor;
   List _loginMethod = [
@@ -129,8 +132,9 @@ class _LoginState extends State<Login> {
 //              ///只有输入的内容符合要求通过才会到达此处
               (_formKey.currentState as FormState).save();
               //TODO 执行登录方法
-              print('email:$_email , assword:$_password');
-              Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(builder: (context) => new App()), (route) => route == null);
+              LogUtil.v('phone:$_phone , name:$_name');
+              Dioutils
+              Router.appRouter.navigateTo(context, Routes.app,clearStack: true);
             }
           },
           shape: StadiumBorder(side: BorderSide()),
