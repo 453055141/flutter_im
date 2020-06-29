@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/app.dart';
 import 'package:flutter_im/config/routes.dart';
+import 'package:flutter_im/utils/http_util.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Login extends StatefulWidget {
@@ -133,7 +134,7 @@ class _LoginState extends State<Login> {
               (_formKey.currentState as FormState).save();
               //TODO 执行登录方法
               LogUtil.v('phone:$_phone , name:$_name');
-              Dioutils
+              Http.post("/login")
               Router.appRouter.navigateTo(context, Routes.app,clearStack: true);
             }
           },

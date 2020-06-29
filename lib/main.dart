@@ -5,6 +5,7 @@ import 'package:fluro/fluro.dart';
 
 import 'config/application.dart';
 import 'config/routes.dart';
+import 'http/http_manager.dart';
 import 'utils/dio_util.dart';
 
 void main(){
@@ -14,14 +15,14 @@ void main(){
   Routes.configureRoutes(router);
   //将生成的router给全局化
   Application.router = router;
-  // 打开debug模式.
-  DioUtil.openDebug();
 
-// 配置网络参数.
-  BaseOptions options = DioUtil.getDefOptions();
-  options.baseUrl = "http://www.wanandroid.com/";
-  HttpConfig config = new HttpConfig(options: options);
-  DioUtil().setConfig(config);
+//初始化 Http，
+  HttpManager().init(
+    baseUrl: "http://127.0.0.1",
+    interceptors: [
+      LogInterceptor(),
+    ],
+  );
   runApp(MyApp());
 }
 
