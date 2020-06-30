@@ -5,12 +5,13 @@ import 'package:flutter_im/config/application.dart';
 import './route_handlers.dart';
 
 class Routes {
-  static String root = "/";
-  static String loading = "/loading";
+  static String loading = "/";
+  static String home = "/home";
   static String login = "/login";
   static String app = "/app";
   static String friends = "/friends";
   static String search = "/search";
+  static String enumPage = "/enum";
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -18,12 +19,13 @@ class Routes {
       print("ROUTE WAS NOT FOUND !!!");
       return;
     });
-    router.define(root, handler: loadingHandler);
-    router.define(app, handler: homeHandler);
+    router.define(home, handler: homeHandler);
+    router.define(app, handler: appHandler);
     router.define(loading, handler: loadingHandler);
     router.define(login,
         handler: loginHandler, transitionType: TransitionType.inFromLeft);
     router.define(search, handler: searchHandler);
+    router.define(enumPage, handler: enumHandler);
     router.define(friends, handler: webViewHandler);
   }
   // 对参数进行encode，解决参数中有特殊字符，影响fluro路由匹配

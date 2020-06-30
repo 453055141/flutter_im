@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_im/config/routes.dart';
 import './common/touch_callback.dart';
 
 class Search extends StatefulWidget {
@@ -6,7 +7,14 @@ class Search extends StatefulWidget {
   _SearchState createState() => _SearchState();
 }
 
+
+
+
 class _SearchState extends State<Search> {
+  BuildContext pageContext;
+
+  _SearchState({pageContext});
+
   //定义焦点节点
   FocusNode focusNode = new FocusNode();
 
@@ -38,25 +46,26 @@ class _SearchState extends State<Search> {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                TouchCallBack(
-                  child: Container(
-                    height: 45.0,
-                    margin: const EdgeInsets.only(left: 12.0, right: 10.0),
-                    child: Icon(
-                      Icons.chevron_left,
-                      color: Colors.black,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  isfeed: false,
-                ),
+//                TouchCallBack(
+//                  child: Container(
+//                    height: 45.0,
+//                    margin: const EdgeInsets.only(left: 12.0, right: 10.0),
+//                    child: Icon(
+//                      Icons.chevron_left,
+//                      color: Colors.black,
+//                    ),
+//                  ),
+//                  onPressed: () {
+//                    Navigator.pop(context);
+////                    Routes.navigateTo(context, Routes.login);
+//                  },
+//                  isfeed: false,
+//                ),
                 //搜索框容器
                 Container(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   height: 45.0,
-                  margin: const EdgeInsets.only(left: 50.0, right: 10.0),
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
                   //搜索框底部边框
                   decoration: BoxDecoration(
                     border: Border(

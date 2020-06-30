@@ -1,20 +1,13 @@
-import 'dart:convert';
-
 import 'package:common_utils/common_utils.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/config/routes.dart';
-import 'package:flutter_im/helpers/base_resp.dart';
-import 'package:flutter_im/utils/http_util.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 import 'config/application.dart';
-import 'config/loading_page.dart';
 import 'http/http_error.dart';
 import 'http/http_manager.dart';
-import 'main.dart';
 import 'models/login/login_req_entity.dart';
 import 'models/user/user_info_entity.dart';
 
@@ -44,7 +37,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-
     pr = new ProgressDialog(context);
     pr.style(message: 'Please wait...');
     return new Scaffold(
@@ -145,8 +137,8 @@ class _LoginState extends State<Login> {
             style: Theme.of(context).primaryTextTheme.overline,
           ),
           color: Colors.black,
-          onPressed: ()  {
-           pr.show();
+          onPressed: () {
+            pr.show();
             if ((_formKey.currentState as FormState).validate()) {
 //              ///只有输入的内容符合要求通过才会到达此处
               (_formKey.currentState as FormState).save();
@@ -179,10 +171,12 @@ class _LoginState extends State<Login> {
                 tag: null,
                 data: loginReqEntity.toJson(),
                 successCallback: (data) {
-                  UserInfoEntity userInfoEntity = UserInfoEntity().fromJson(data);
+                  UserInfoEntity userInfoEntity =
+                      UserInfoEntity().fromJson(data);
                   SpUtil.putObject("user", userInfoEntity);
                   SpUtil.putString("token", userInfoEntity.token);
-                  Application.router.navigateTo(context, Routes.app, clearStack: true);
+                  Application.router
+                      .navigateTo(context, Routes.home, clearStack: true);
                 },
                 errorCallback: (HttpError error) {
 //                  Dialog(child: Text(error.toString()),);
@@ -190,7 +184,6 @@ class _LoginState extends State<Login> {
 //                  LogUtil.v('error:$error');
                 },
               );
-
             }
           },
           shape: StadiumBorder(side: BorderSide()),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:fluro/fluro.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 
 import 'config/application.dart';
 import 'config/routes.dart';
@@ -20,7 +19,7 @@ void main(){
 
 //初始化 Http，
   HttpManager().init(
-    baseUrl: "http://192.168.51.200:8080",
+    baseUrl: "http://192.168.3.17:8080",
     interceptors: [
       MyLogInterceptor(),
     ],

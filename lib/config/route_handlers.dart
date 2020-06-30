@@ -1,14 +1,21 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import '../home.dart';
 import '../app.dart';
+import '../enum.dart';
 import '../loading.dart';
 import '../search.dart';
 import '../login.dart';
 import '../web_view.dart';
 
-var homeHandler =
+var appHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return App();
+});
+
+var homeHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return Home();
 });
 
 var loadingHandler =
@@ -24,6 +31,11 @@ var loginHandler =
 var searchHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return Search();
+});
+
+var enumHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return EnumPage();
 });
 
 // 网页加载 - 示例：传多个字符串参数
