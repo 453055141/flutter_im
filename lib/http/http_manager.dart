@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:connectivity/connectivity.dart';
@@ -31,7 +32,7 @@ class HttpManager {
   ///超时时间
   static const int CONNECT_TIMEOUT = 30000;
   static const int RECEIVE_TIMEOUT = 30000;
-  static const String TOKEN = "1373a739fd8599909738511f41831623";
+  static const String TOKEN = "";
 
   /// http request methods
   static const String GET = 'get';
@@ -41,7 +42,7 @@ class HttpManager {
   Map<String, dynamic> httpHeaders = {
     'Accept': 'application/json,*/*',
     'Content-Type': 'application/json',
-    'token': TOKEN
+    'token': SpUtil.getObject("token")
   };
 
   Dio _client;
@@ -201,18 +202,20 @@ class HttpManager {
           queryParameters: params,
           options: options,
           cancelToken: cancelToken);
-      String statusCode = response.data["statusCode"];
-      if (statusCode == "0") {
+      String code = response.data["code"].toString();
+      if (code == "200") {
         //成功
         if (successCallback != null) {
-          successCallback(response.data["data"]);
+          var data = response.data["data"];
+          LogUtil.v("data：$data");
+          successCallback(data);
         }
       } else {
         //失败
-        String message = response.data["statusDesc"];
+        String message = response.data["msg"];
         LogUtil.v("请求服务器出错：$message");
         if (errorCallback != null) {
-          errorCallback(HttpError(statusCode, message));
+          errorCallback(HttpError(code, message));
         }
       }
     } on DioError catch (e, s) {
@@ -361,15 +364,15 @@ class HttpManager {
           queryParameters: params,
           options: options,
           cancelToken: cancelToken);
-      String statusCode = response.data["statusCode"];
-      if (statusCode == "0") {
+      String statusCode = response.data["code"];
+      if (statusCode == "200") {
         //成功
         if (successCallback != null) {
           successCallback(response.data["data"]);
         }
       } else {
         //失败
-        String message = response.data["statusDesc"];
+        String message = response.data["msg"];
         LogUtil.v("请求服务器出错：$message");
         if (errorCallback != null) {
           errorCallback(HttpError(statusCode, message));
@@ -487,8 +490,8 @@ class HttpManager {
           data: data,
           options: options,
           cancelToken: cancelToken);
-      String statusCode = response.data["statusCode"];
-      if (statusCode == "0") {
+      String statusCode = response.data["code"];
+      if (statusCode == "200") {
         //成功
         if (jsonParse != null) {
           return jsonParse(response.data["data"]);
@@ -497,7 +500,7 @@ class HttpManager {
         }
       } else {
         //失败
-        String message = response.data["statusDesc"];
+        String message = response.data["msg"];
         LogUtil.v("请求服务器出错：$message");
         //只能用 Future，外层有 try catch
         return Future.error((HttpError(statusCode, message)));
@@ -623,8 +626,8 @@ class HttpManager {
           options: options,
           cancelToken: cancelToken);
 
-      String statusCode = response.data["statusCode"];
-      if (statusCode == "0") {
+      String statusCode = response.data["code"].toString();
+      if (statusCode == "200") {
         //成功
         if (jsonParse != null) {
           return jsonParse(response.data["data"]);
@@ -633,7 +636,7 @@ class HttpManager {
         }
       } else {
         //失败
-        String message = response.data["statusDesc"];
+        String message = response.data["msg"];
         LogUtil.v("请求服务器出错：$message");
         return Future.error((HttpError(statusCode, message)));
       }

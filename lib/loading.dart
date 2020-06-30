@@ -23,12 +23,7 @@ class _LoadingPageState extends State<LoadingPage> {
     Future.delayed(new Duration(milliseconds: 500), () {
       /// 同步使用Sp。
       /// 是否显示引导页。
-      if (SpUtil.getBool("key_guide", defValue: true)) {
-        SpUtil.putBool("key_guide", false);
-        _initBanner();
-      } else {
         _initSplash();
-      }
     });
   }
 
@@ -45,7 +40,7 @@ class _LoadingPageState extends State<LoadingPage> {
       _info = "广告页，2秒后跳转到登录";
     });
     new Future.delayed(new Duration(seconds: 3),(){
-      print("flutter即时通讯APP加载页");
+      LogUtil.v("flutter即时通讯APP加载页");
       Routes.navigateTo(context, Routes.login);
     });
   }
@@ -62,11 +57,7 @@ class _LoadingPageState extends State<LoadingPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          bool isGuide = SpUtil.getBool("key_guide", defValue: true);
-          LogUtil.v(isGuide);
-          if (!isGuide) {
             Routes.navigateTo(context, Routes.login);
-          }
         },
         child: Icon(Icons.navigate_next),
       ),

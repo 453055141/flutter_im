@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import './chat/message_page.dart';
 import './contacts/contacts.dart';
 import './personal/personal.dart';
+import 'main.dart';
 
 class App extends StatefulWidget {
   @override

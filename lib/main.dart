@@ -1,12 +1,14 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluro/fluro.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 import 'config/application.dart';
 import 'config/routes.dart';
 import 'http/http_manager.dart';
-import 'utils/dio_util.dart';
+import 'http/log_interceptor.dart';
+
+
 
 void main(){
   //创建一个Router对象
@@ -18,15 +20,16 @@ void main(){
 
 //初始化 Http，
   HttpManager().init(
-    baseUrl: "http://127.0.0.1",
+    baseUrl: "http://192.168.51.200:8080",
     interceptors: [
-      LogInterceptor(),
+      MyLogInterceptor(),
     ],
   );
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

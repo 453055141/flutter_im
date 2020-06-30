@@ -6,8 +6,8 @@ void log2Console(Object object) {
 }
 
 /// 自定义日志拦截器
-class LcfarmLogInterceptor extends Interceptor {
-  LcfarmLogInterceptor({
+class MyLogInterceptor extends Interceptor {
+  MyLogInterceptor({
     this.request = true,
     this.requestHeader = true,
     this.requestBody = false,
