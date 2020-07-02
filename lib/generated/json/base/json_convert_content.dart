@@ -7,6 +7,8 @@ import 'package:flutter_im/models/user/user_info_entity.dart';
 import 'package:flutter_im/generated/json/user_info_entity_helper.dart';
 import 'package:flutter_im/models/login/login_req_entity.dart';
 import 'package:flutter_im/generated/json/login_req_entity_helper.dart';
+import 'package:flutter_im/models/menu/continent_and_ocean_entity.dart';
+import 'package:flutter_im/generated/json/continent_and_ocean_entity_helper.dart';
 
 class JsonConvert<T> {
 	T fromJson(Map<String, dynamic> json) {
@@ -20,21 +22,24 @@ class JsonConvert<T> {
   static _getFromJson<T>(Type type, data, json) {
     switch (type) {			case UserInfoEntity:
 			return userInfoEntityFromJson(data as UserInfoEntity, json) as T;			case LoginReqEntity:
-			return loginReqEntityFromJson(data as LoginReqEntity, json) as T;    }
+			return loginReqEntityFromJson(data as LoginReqEntity, json) as T;			case ContinentAndOceanEntity:
+			return continentAndOceanEntityFromJson(data as ContinentAndOceanEntity, json) as T;    }
     return data as T;
   }
 
   static _getToJson<T>(Type type, data) {
 		switch (type) {			case UserInfoEntity:
 			return userInfoEntityToJson(data as UserInfoEntity);			case LoginReqEntity:
-			return loginReqEntityToJson(data as LoginReqEntity);    }
+			return loginReqEntityToJson(data as LoginReqEntity);			case ContinentAndOceanEntity:
+			return continentAndOceanEntityToJson(data as ContinentAndOceanEntity);    }
     return data as T;
   }
   //Go back to a single instance by type
   static _fromJsonSingle(String type, json) {
     switch (type) {			case 'UserInfoEntity':
 			return UserInfoEntity().fromJson(json);			case 'LoginReqEntity':
-			return LoginReqEntity().fromJson(json);    }
+			return LoginReqEntity().fromJson(json);			case 'ContinentAndOceanEntity':
+			return ContinentAndOceanEntity().fromJson(json);    }
     return null;
   }
 
@@ -42,7 +47,8 @@ class JsonConvert<T> {
   static _getListFromType(String type) {
     switch (type) {			case 'UserInfoEntity':
 			return List<UserInfoEntity>();			case 'LoginReqEntity':
-			return List<LoginReqEntity>();    }
+			return List<LoginReqEntity>();			case 'ContinentAndOceanEntity':
+			return List<ContinentAndOceanEntity>();    }
     return null;
   }
 

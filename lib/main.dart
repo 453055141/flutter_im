@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:fluro/fluro.dart';
+import 'package:flutter_im/http/api.dart';
 
 import 'config/application.dart';
 import 'config/routes.dart';
@@ -19,7 +20,7 @@ void main(){
 
 //初始化 Http，
   HttpManager().init(
-    baseUrl: "http://192.168.3.17:8080",
+    baseUrl: API.BASE_URL,
     interceptors: [
       MyLogInterceptor(),
     ],

@@ -2,6 +2,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/config/routes.dart';
+import 'package:flutter_im/http/api.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
@@ -167,7 +168,7 @@ class _LoginState extends State<Login> {
               loginReqEntity.name = _name;
               loginReqEntity.phone = _phone;
               HttpManager().post(
-                url: "/user/login",
+                url: API.LOGIN,
                 tag: null,
                 data: loginReqEntity.toJson(),
                 successCallback: (data) {
