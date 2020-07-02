@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import '../home.dart';
 import '../app.dart';
-import '../enum.dart';
+import '../menu.dart';
 import '../loading.dart';
 import '../search.dart';
 import '../login.dart';
@@ -33,9 +33,9 @@ var searchHandler =
   return Search();
 });
 
-var enumHandler =
+var menuHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  return EnumPage();
+  return MenuPage();
 });
 
 // 网页加载 - 示例：传多个字符串参数

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/personal/personal.dart';
 import 'package:flutter_im/search.dart';
 
-import 'enum.dart';
+import 'menu.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     list
-      ..add(EnumPage())
+      ..add(MenuPage())
       ..add(Search())
       ..add(Personal());
     super.initState();

@@ -11,7 +11,7 @@ class Routes {
   static String app = "/app";
   static String friends = "/friends";
   static String search = "/search";
-  static String enumPage = "/enum";
+  static String menuPage = "/menu";
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -25,7 +25,7 @@ class Routes {
     router.define(login,
         handler: loginHandler, transitionType: TransitionType.inFromLeft);
     router.define(search, handler: searchHandler);
-    router.define(enumPage, handler: enumHandler);
+    router.define(menuPage, handler: menuHandler);
     router.define(friends, handler: webViewHandler);
   }
   // 对参数进行encode，解决参数中有特殊字符，影响fluro路由匹配
