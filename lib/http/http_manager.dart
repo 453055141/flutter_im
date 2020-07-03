@@ -32,7 +32,6 @@ class HttpManager {
   ///超时时间
   static const int CONNECT_TIMEOUT = 30000;
   static const int RECEIVE_TIMEOUT = 30000;
-  static const String TOKEN = "";
 
   /// http request methods
   static const String GET = 'get';
@@ -41,8 +40,7 @@ class HttpManager {
   /// 自定义Header
   Map<String, dynamic> httpHeaders = {
     'Accept': 'application/json,*/*',
-    'Content-Type': 'application/json',
-    'token': SpUtil.getObject("token")
+    'Content-Type': 'application/json'
   };
 
   Dio _client;
@@ -182,9 +180,13 @@ class HttpManager {
 
     options?.method = method;
 
+    httpHeaders = _headels();
+    options?.headers = httpHeaders;
+
     options = options ??
         Options(
           method: method,
+          headers: httpHeaders,
         );
 
     url = _restfulUrl(url, params);
@@ -196,7 +198,6 @@ class HttpManager {
             _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
         _cancelTokens[tag] = cancelToken;
       }
-
       Response<Map<String, dynamic>> response = await _client.request(url,
           data: data,
           queryParameters: params,
@@ -670,5 +671,11 @@ class HttpManager {
       }
     });
     return url;
+  }
+
+  Map<String, dynamic> _headels() {
+    httpHeaders['token'] = SpUtil.getString('token');
+    httpHeaders['version'] = '1.0.0';
+    return httpHeaders;
   }
 }
