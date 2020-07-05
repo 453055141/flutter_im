@@ -1,10 +1,12 @@
+import 'dart:async';
+
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_im/http/api.dart';
 import 'package:flutter_im/http/http_manager.dart';
 import 'package:flutter_im/models/menu/continent_and_ocean_entity.dart';
-
-import 'http/http_error.dart';
 
 class MenuPage extends StatefulWidget {
   @override
@@ -12,40 +14,54 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-
-  var _getListData;
-  List<ContinentAndOceanEntity> _list = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _getListData = _getList();
+  Future<List<ContinentAndOceanEntity>> _getList() async {
+    List<dynamic> list =
+        await HttpManager().getAsync(url: API.GET_CONTINENT_OCEAN, tag: null);
+    List<ContinentAndOceanEntity> listEntity =
+        list.map((e) => ContinentAndOceanEntity().fromJson(e)).toList();
+    return listEntity;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('请选择查看区域'),
+      ),
       body: SafeArea(
         child: FutureBuilder<List<ContinentAndOceanEntity>>(
-          future: _getListData,
+          future: _getList(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              if (null != snapshot.data) {
-                List<ContinentAndOceanEntity> list = snapshot.data;
-                return ListView.builder(
-                  padding: EdgeInsets.only(left: 10, right: 10, top: 6),
-                  itemCount: list.length,
-                  itemBuilder: (context, index) =>
-                      _dataList(context, list[index]),
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return Center(
+                  child: Text('加载中……'),
                 );
-              }
-            } else if (snapshot.hasError) {
-              return Center(child: Text("Error occurs! ${snapshot.error}"));
-            } else {
-              return Center(
-                child: Text('加载中……'),
-              );
+              case ConnectionState.waiting:
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              case ConnectionState.active:
+                return Center(
+                  child: Text('active……'),
+                );
+              case ConnectionState.done:
+                if (snapshot.hasError) {
+                  return Center(child: Text("Error occurs! ${snapshot.error}"));
+                } else {
+                  if (snapshot.hasData) {
+                    if (null != snapshot.data) {
+                      List<ContinentAndOceanEntity> list = snapshot.data;
+                      return ListView.builder(
+                        padding: EdgeInsets.only(top: 30),
+                        itemCount: list.length,
+                        itemBuilder: (context, index) =>
+                            _dataList(context, list[index]),
+                      );
+                    }
+                  }
+                }
+                ;
             }
           },
         ),
@@ -54,16 +70,23 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget _dataList(BuildContext context, ContinentAndOceanEntity entity) {
-    return new Text(entity.name);
-  }
-}
+//    new Text(entity.name);
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(10),
+      child: RaisedButton(
+        splashColor: Colors.blue,
+        padding: EdgeInsets.all(10),
+        elevation: 6,
+        highlightColor: Colors.cyan,
+        textColor: Colors.deepOrange,
+        child: Text(
+            entity.name,
+            style: TextStyle(fontSize: 20)
+        ),
+        onPressed: (){},
 
-Future<List<ContinentAndOceanEntity>> _getList() async{
- await HttpManager().get(
-      url: API.GET_CONTINENT_OCEAN,
-      tag: null,
-      successCallback: (data) {
-        return _list = data;
-      },
-      errorCallback: (HttpError error) {});
+      ),
+    );
+  }
 }

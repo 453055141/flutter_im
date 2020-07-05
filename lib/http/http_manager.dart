@@ -365,7 +365,7 @@ class HttpManager {
           queryParameters: params,
           options: options,
           cancelToken: cancelToken);
-      String statusCode = response.data["code"];
+      String statusCode = response.data["code"].toString();
       if (statusCode == "200") {
         //成功
         if (successCallback != null) {
@@ -471,9 +471,13 @@ class HttpManager {
 
     options?.method = method;
 
+    httpHeaders = _headels();
+    options?.headers = httpHeaders;
+
     options = options ??
         Options(
           method: method,
+          headers: httpHeaders,
         );
 
     url = _restfulUrl(url, params);
@@ -491,7 +495,7 @@ class HttpManager {
           data: data,
           options: options,
           cancelToken: cancelToken);
-      String statusCode = response.data["code"];
+      String statusCode = response.data["code"].toString();
       if (statusCode == "200") {
         //成功
         if (jsonParse != null) {
