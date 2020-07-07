@@ -1,12 +1,13 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import '../home.dart';
-import '../app.dart';
-import '../menu.dart';
+import 'package:flutter_im/page/country.dart';
+import '../page/search.dart';
+import '../page/home.dart';
+import '../page/app.dart';
+import '../page/menu.dart';
 import '../loading.dart';
-import '../search.dart';
 import '../login.dart';
-import '../web_view.dart';
+import '../page/web_view.dart';
 
 var appHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
@@ -36,6 +37,14 @@ var searchHandler =
 var menuHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return MenuPage();
+});
+
+var countryHandler =
+Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  String regionalsId = params['regionalsId']?.first;
+  return CountryPage(
+      regionalsId: regionalsId,
+  );
 });
 
 // 网页加载 - 示例：传多个字符串参数

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/page/search.dart';
 import 'package:flutter_im/personal/personal.dart';
-import 'package:flutter_im/search.dart';
 
 import 'menu.dart';
 

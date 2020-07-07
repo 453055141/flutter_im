@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_im/config/routes.dart';
-import './common/touch_callback.dart';
+import 'package:flutter_im/common/touch_callback.dart';
 
 class Search extends StatefulWidget {
   @override

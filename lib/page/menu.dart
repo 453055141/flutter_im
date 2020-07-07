@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_im/config/routes.dart';
 import 'package:flutter_im/http/api.dart';
 import 'package:flutter_im/http/http_manager.dart';
 import 'package:flutter_im/models/menu/continent_and_ocean_entity.dart';
@@ -61,8 +61,10 @@ class _MenuPageState extends State<MenuPage> {
                     }
                   }
                 }
-                ;
             }
+            return Center(
+              child: Text('加载中……'),
+            );
           },
         ),
       ),
@@ -70,7 +72,6 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget _dataList(BuildContext context, ContinentAndOceanEntity entity) {
-//    new Text(entity.name);
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
@@ -80,12 +81,16 @@ class _MenuPageState extends State<MenuPage> {
         elevation: 6,
         highlightColor: Colors.cyan,
         textColor: Colors.deepOrange,
-        child: Text(
-            entity.name,
-            style: TextStyle(fontSize: 20)
-        ),
-        onPressed: (){},
-
+        child: Text(entity.name, style: TextStyle(fontSize: 20)),
+        onPressed: () {
+          Routes.navigateTo(
+            context,
+            Routes.countryPage,
+            params: {
+              'regionalsId': entity.key,
+            },
+          );
+        },
       ),
     );
   }

@@ -12,6 +12,7 @@ class Routes {
   static String friends = "/friends";
   static String search = "/search";
   static String menuPage = "/menu";
+  static String countryPage = "/country";
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -27,6 +28,7 @@ class Routes {
     router.define(search, handler: searchHandler);
     router.define(menuPage, handler: menuHandler);
     router.define(friends, handler: webViewHandler);
+    router.define(countryPage, handler: countryHandler);
   }
   // 对参数进行encode，解决参数中有特殊字符，影响fluro路由匹配
   static Future navigateTo(BuildContext context, String path, {Map<String, dynamic> params, TransitionType transition = TransitionType.native}) {
