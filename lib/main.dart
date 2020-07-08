@@ -109,8 +109,8 @@ class _MyAppState extends State<MyApp> {
   _loadSplashAd() async
   {
     Pangolin.loadSplashAd(
-        mCodeId: "887310537",
-        debug: false);
+        mCodeId: "887343889",
+        debug: true);
   }
 
   //945122969
